@@ -47,9 +47,6 @@
 #TCL - files
 !*.tcl
 
-#Journal - files
-!*.jou
-
 #Reports
 !*.rpt
 !*.txt
@@ -61,4 +58,3 @@
 !*.elf
 !*.bmm
 !*.xmp
-vivado.jou
