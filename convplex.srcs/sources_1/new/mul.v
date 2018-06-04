@@ -1,65 +1,38 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company:
-// Engineer:
-//
-// Create Date: 2018/06/03 23:58:58
-// Design Name:
-// Module Name: mul
-// Project Name:
-// Target Devices:
-// Tool Versions:
-// Description:
-//
-// Dependencies:
-//
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-//
-//////////////////////////////////////////////////////////////////////////////////
+
 
 module white(
-                        a, b, c_in, s_in,
-                        c_out, s_out
+    input a, b, c_in, s_in,
+    output c_out, s_out
 );
-    input a, b, c_in, s_in;
-    output c_out, s_out;
-
     assign s_out = s_in ^ c_in ^ (a & b);
     assign c_out = (s_in & c_in) | (s_in & (a&b)) | (c_in & (a&b));
 endmodule
 
-module grey(
-                    a, b, c_in, s_in,
-                    c_out, s_out
-);
-    input  a, b, c_in, s_in;
-    output c_out, s_out;
 
+module grey(
+    input a, b, c_in, s_in,
+    output c_out, s_out
+);
     assign s_out = s_in ^ c_in ^ (~(a & b));
     assign c_out = (s_in & c_in) | (s_in & ~(a&b)) | (c_in & ~(a&b));
- endmodule
+endmodule
+
 
 module FA(
-          s_in, c_in1, c_in2,
-          cout, result
+    input s_in, c_in1, c_in2,
+    output cout, result
 );
-    input    s_in, c_in1, c_in2;
-    output  cout, result;
-
     assign result = s_in ^ c_in1 ^ c_in2;
     assign cout = (s_in & c_in1) | (s_in & c_in2) | (c_in1 & c_in2);
 endmodule
 
-module mul(
-                     data ,
-                     weight,
-                     p
+
+module Mul(
+    input   [15:0] data,
+    input   [15:0] weight,
+    output  [31:0] p
 );
-    input   [15:0] data;
-    input   [15:0] weight;
-    output  [31:0] p;
     wire    ground;
     wire    vcc;
 
@@ -389,5 +362,4 @@ module mul(
     FA    c_he(s_out_gd, c_out_ge, c_out_hf, c_out_he, p[18]);
     FA    c_hf(s_out_ge, c_out_gf, c_out_hg, c_out_hf, p[17]);
     FA    c_hg(s_out_gf, c_out_gg, vcc     , c_out_hg, p[16]);
-
 endmodule
