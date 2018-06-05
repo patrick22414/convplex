@@ -2,19 +2,34 @@
 
 
 // Weight_Buffer : store 9 * 16bits input Weight for convolution
-// Data inputs according to the CLK and Write_en sequentially, data outputs according to the CLK and Read_en concurrently
-module Weight_Buffer(Write_en, Read_en, CLK, RESET, Data_in, Data_out0, Data_out1, Data_out2, Data_out3, Data_out4, Data_out5, Data_out6, Data_out7, Data_out8 );
+// Data inputs according to the clk and Write_en sequentially, data outputs according to the clk and Read_en concurrently
+module Weight_Buffer (
+    Write_en,
+    Read_en,
+    clk,
+    rst,
+    din,
+    dout0,
+    dout1,
+    dout2,
+    dout3,
+    dout4,
+    dout5,
+    dout6,
+    dout7,
+    dout8
+);
     
-    input Write_en, Read_en, CLK, RESET;
-    input [15:0] Data_in;
-    output reg [15:0] Data_out0, Data_out1, Data_out2, Data_out3, Data_out4, Data_out5, Data_out6, Data_out7, Data_out8;
+    input Write_en, Read_en, clk, rst;
+    input [15:0] din;
+    output reg [15:0] dout0, dout1, dout2, dout3, dout4, dout5, dout6, dout7, dout8;
     
     reg [15:0] Memory [15:0];  // storing the input data array 16*16bits, using 9*16bits in fact
     reg [4:0] count = 4'b0;       // record the current position for input data in the array
 
-    always @ (posedge CLK, posedge RESET)
+    always @ (posedge clk, posedge rst)
     begin
-        if (RESET) 
+        if (rst) 
             begin
                  Memory[0] <= 16'b0;
                  Memory[1] <= 16'b0;
@@ -35,35 +50,35 @@ module Weight_Buffer(Write_en, Read_en, CLK, RESET, Data_in, Data_out0, Data_out
               
                  count <= 4'b0;
                  
-                 Data_out0 <= 16'b0;
-                 Data_out1 <= 16'b0;
-                 Data_out2 <= 16'b0;
-                 Data_out3 <= 16'b0;
-                 Data_out4 <= 16'b0;
-                 Data_out5 <= 16'b0;
-                 Data_out6 <= 16'b0;
-                 Data_out7 <= 16'b0;
-                 Data_out8 <= 16'b0;
+                 dout0 <= 16'b0;
+                 dout1 <= 16'b0;
+                 dout2 <= 16'b0;
+                 dout3 <= 16'b0;
+                 dout4 <= 16'b0;
+                 dout5 <= 16'b0;
+                 dout6 <= 16'b0;
+                 dout7 <= 16'b0;
+                 dout8 <= 16'b0;
              end
         else if (Write_en)   
             begin
                 if (count < 4'b1001)
                     begin
-                        Memory[count] <= Data_in;
+                        Memory[count] <= din;
                         count = count + 4'b1;
                     end
                 end
           else if (Read_en)
             begin
-                Data_out0 <= Memory[0];
-                Data_out1 <= Memory[1];
-                Data_out2 <= Memory[2];
-                Data_out3 <= Memory[3];
-                Data_out4 <= Memory[4];
-                Data_out5 <= Memory[5];
-                Data_out6 <= Memory[6];
-                Data_out7 <= Memory[7];
-                Data_out8 <= Memory[8];
+                dout0 <= Memory[0];
+                dout1 <= Memory[1];
+                dout2 <= Memory[2];
+                dout3 <= Memory[3];
+                dout4 <= Memory[4];
+                dout5 <= Memory[5];
+                dout6 <= Memory[6];
+                dout7 <= Memory[7];
+                dout8 <= Memory[8];
             end
      end       
 

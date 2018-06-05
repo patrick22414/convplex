@@ -16,6 +16,12 @@ module ModuleName #(
     //...
 );
 
+    // declarations
+
+    always @(*) begin
+        // statements
+    end
+
     // statements
 
 endmodule
@@ -26,3 +32,8 @@ endmodule
 * clock, negedge triggered: `clk_n`
 * enable, active high: `en`
 * reset, active high: `rst`
+
+### Combinational signals naming convention
+
+* data-in: `din`
+* data-out: `dout`
