@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 
-module white(
+module white (
     input a, b, c_in, s_in,
     output c_out, s_out
 );
@@ -10,7 +10,7 @@ module white(
 endmodule
 
 
-module grey(
+module grey (
     input a, b, c_in, s_in,
     output c_out, s_out
 );
@@ -19,7 +19,7 @@ module grey(
 endmodule
 
 
-module FA(
+module FA (
     input s_in, c_in1, c_in2,
     output cout, result
 );
@@ -28,7 +28,7 @@ module FA(
 endmodule
 
 
-module Mul(
+module Mul (
     input   [15:0] data,
     input   [15:0] weight,
     output  [31:0] p
