@@ -18,14 +18,19 @@ module Weight_Buffer (
     output  [15:0] dout8
 );
     
-    reg [15:0] Memory [15:0];  // storing the input data array 16*16bits, using 9*16bits in fact
-    reg [4:0] count = 4'b0;       // record the current position for input data in the array
+    reg [15:0] Memory [8:0];  // storing the input data array 16*16bits, using 9*16bits in fact
+    reg [4:0] count = 4'b0;       // record the current position for input data in the array, only for 9 input data
+    integer k = 0;
 
     always @ (posedge clk)     // input according to clk
         begin
             if (en==1 && count < 4'b1001)
                 begin
-                    Memory[count] <= din;
+                    for (k=0; k<8; k=k+1) 
+                        begin
+                                        Memory[k] <= Memory[k+1];
+                        end
+                    Memory[8] <= din;
                     count <= count + 1;
                 end
             if (en==0)
