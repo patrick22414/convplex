@@ -1,0 +1,13 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../convplex.srcs/sources_1/new/AddTree.v" \
+"../../../../convplex.srcs/sources_1/new/DataLine.v" \
+"../../../../convplex.srcs/sources_1/new/Weight_Buffer.v" \
+"../../../../convplex.srcs/sources_1/new/mul.v" \
+"../../../../convplex.srcs/sources_1/new/Convplex.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
