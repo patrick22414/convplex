@@ -1,6 +1,20 @@
 # convplex
 Verilog implementation of a convolution complex.
 
+## Project Summary
+
+### Data formats
+* 16-bit signed Q12 fixed-point numbers.
+
+### Objective
+1. Read the conv-kernel from an AXI memory (perhaps a blurring or sharpening filter).
+
+1. Read data from the memory device sequentially.
+
+1. Compute the convolution.
+
+1. Write the result back to memory.
+
 ## Verilog HDL
 
 ### Modules
@@ -26,6 +40,7 @@ module ModuleName #(
 
 endmodule
 ```
+
 ### Sequential signals naming convention
 
 * clock, posedge triggered: `clk`
