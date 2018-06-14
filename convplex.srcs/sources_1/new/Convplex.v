@@ -8,7 +8,7 @@ module Convplex #(
     input signed [w-1:0] din,
     input signed [w-1:0] weight,
 
-    output signed [w+3:0] result
+    output signed [w-1:0] result
 );
 
     // declarations
@@ -33,6 +33,18 @@ module Convplex #(
     Mul mul7(dout7, w7, m7);
     Mul mul8(dout8, w8, m8);
 
-    AddTree addtree(m0, m1, m2, m3, m4, m5, m6, m7, m8, result);
+    AddTree addtree(
+        .en('b1),
+        .din0(m0),
+        .din1(m1),
+        .din2(m2),
+        .din3(m3),
+        .din4(m4),
+        .din5(m5),
+        .din6(m6),
+        .din7(m7),
+        .din8(m8),
+        .dout(result)
+    );
 
 endmodule

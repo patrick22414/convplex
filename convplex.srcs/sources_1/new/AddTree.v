@@ -4,6 +4,7 @@
 module AddTree #(
     parameter w = 16
 )(
+    input wire en,
     input signed [w-1:0] din0,
     input signed [w-1:0] din1,
     input signed [w-1:0] din2,
@@ -14,7 +15,7 @@ module AddTree #(
     input signed [w-1:0] din7,
     input signed [w-1:0] din8,
 
-    output signed [w-1:0] dout
+    output reg signed [w-1:0] dout
 );
 
     wire signed [w-1:0] level0 [0:7];
@@ -38,6 +39,12 @@ module AddTree #(
     assign level2[0] = level1[0] + level1[1];
     assign level2[1] = level1[2] + level1[3];
 
-    assign dout = level2[0] + level2[1];
+    always @(*) begin
+        if (en) begin
+            dout <= level2[0] + level2[1]; 
+        end else begin
+            dout <= 'bz;
+        end
+    end
 
 endmodule
