@@ -5,15 +5,15 @@ module Control(
     input wire clk,
     input wire rst,
 
-    output wire en_weights, // enable weights input
-    output wire en_data,    // enable data input
-    output wire mem_rd,     // enable memory read
-    output wire mem_wr      // enable memory write
+    output reg en_weights, // enable weights input
+    output reg en_data,    // enable data input
+    output reg mem_rd,     // enable memory read
+    output reg mem_wr      // enable memory write
 );
 
     reg [10:0] c;  // counter
 
-    wire rst32;
+    reg rst32;
     reg [4:0] c32;  // counter 32
 
     always @(posedge clk) begin
@@ -56,7 +56,7 @@ module Control(
             en_weights <= 0;
             en_data <= 1;
             mem_rd <= 1;
-            if (c32 < 29)
+            if (c32 < 30)
                 mem_wr <= 1;
             else
                 mem_wr <= 0;

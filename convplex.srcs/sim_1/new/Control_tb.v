@@ -2,7 +2,8 @@
 
 module Control_tb;
 
-    wire clk, rst, enweig, endata, rd, wr;
+    reg clk, rst;
+    wire enweig, endata, rd, wr;
 
     Control control(
         .clk(clk),
@@ -14,8 +15,15 @@ module Control_tb;
     );
 
     initial begin
-        rst <= 1;
-        clk <= 1;
+        rst <= 1; #20;
+        rst <= 0; #5000;
+        $finish;
     end
+
+    initial
+        clk <= 0;
+
+    always
+        #1 clk <= ! clk;
 
 endmodule // Control_tb
