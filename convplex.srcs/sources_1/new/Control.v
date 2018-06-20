@@ -39,19 +39,19 @@ module Control(
             en_data <= 0;
             mem_rd <= 0;
             mem_wr <= 0;
-        end else if (c < 9) begin  // effective from 1st to 9th clk
+        end else if ( c > 1 && c < 11) begin  // effective from 2nd to 10th clk
             rst32 <= 1;
             en_weights <= 1;
             en_data <= 0;
             mem_rd <= 1;
             mem_wr <= 0;
-        end else if (c < (9 + 67)) begin // effective from 10th to 76th clk
+        end else if (c < (11 + 67)) begin // effective from 11th to 77th clk
             rst32 <= 1;
             en_weights <= 0;
             en_data <= 1;
             mem_rd <= 1;
             mem_wr <= 0;
-        end else if (c < (9 + 1024)) begin
+        end else if (c < (11 + 1024)) begin
             rst32 <= 0;
             en_weights <= 0;
             en_data <= 1;

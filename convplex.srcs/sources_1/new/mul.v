@@ -39,7 +39,7 @@ module Mul (
 
     assign ground = 1'b0;
     assign vcc = 1'b1;
-    assign m = p[31:16];
+    assign m = {p[31], p[26:24],p[23:12]};
 
     wire c_out_11, c_out_12, c_out_13, c_out_14, c_out_15, c_out_16, c_out_17, c_out_18, c_out_19, c_out_1a, c_out_1b, c_out_1c, c_out_1d, c_out_1e, c_out_1f, c_out_1g;
     wire c_out_21, c_out_22, c_out_23, c_out_24, c_out_25, c_out_26, c_out_27, c_out_28, c_out_29, c_out_2a, c_out_2b, c_out_2c, c_out_2d, c_out_2e, c_out_2f, c_out_2g;

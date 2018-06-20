@@ -4,22 +4,25 @@
 module Convplex #(
     parameter w = 16 // width: 16 bits
 )(
-    input wire clk, en,
+    input wire clk, en_weights, en_data,
     input signed [w-1:0] din,
     input signed [w-1:0] weight,
 
-    output signed [w-1:0] result
+    output signed [w-1:0] result,
+    output signed [w-1:0] dout0, dout1, dout2, dout3, dout4, dout5, dout6, dout7, dout8,
+    output signed [w-1:0] w0, w1, w2, w3, w4, w5, w6, w7, w8,
+    output signed [w-1:0] m0, m1, m2, m3, m4, m5, m6, m7, m8
 );
 
     // declarations
-    wire signed [w-1:0] dout0, dout1, dout2, dout3, dout4, dout5, dout6, dout7, dout8;
-    wire signed [w-1:0] w0, w1, w2, w3, w4, w5, w6, w7, w8;
-    wire signed [w-1:0] m0, m1, m2, m3, m4, m5, m6, m7, m8;
-    DataLine dataline(clk, en, din,
+    //wire signed [w-1:0] dout0, dout1, dout2, dout3, dout4, dout5, dout6, dout7, dout8;
+    //wire signed [w-1:0] w0, w1, w2, w3, w4, w5, w6, w7, w8;
+    //wire signed [w-1:0] m0, m1, m2, m3, m4, m5, m6, m7, m8;
+    DataLine dataline(clk, en_data, din,
                       dout0, dout1, dout2,
                       dout3, dout4, dout5,
                       dout6, dout7, dout8);
-    Weight_Buffer weight_buffer (en, clk, weight,
+    Weight_Buffer weight_buffer (en_weights, clk, weight,
                                  w0, w1, w2,
                                  w3, w4, w5,
                                  w6, w7, w8);
