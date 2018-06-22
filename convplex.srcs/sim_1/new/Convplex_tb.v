@@ -30,11 +30,20 @@ module Convplex_tb;
         .addr_wr(addr_wr)
     );
 
-    integer file;
+    integer file, i;
 
     initial begin
+        file = $fopen("D:/output.txt");
         rst <= 1; #20;
-        rst <= 0; #3000;
+        rst <= 0; #157; // begin to write in memory 
+        // write value of 'mem_out' every 2 ns if 'mem_wr' is high
+        for (i = 0; i<3000; i=i+1) begin
+            if(mem_wr) begin
+                $fdisplay(file, "%b\t", mem_out);
+            end
+            #2;
+        end
+        $fclose(file);        
         $finish;
     end
 
@@ -43,8 +52,5 @@ module Convplex_tb;
 
     always
         #1 clk <= ! clk;
-
-    always
-        #2 $fdisplay(file, "%d,", mem_out);
 
 endmodule
