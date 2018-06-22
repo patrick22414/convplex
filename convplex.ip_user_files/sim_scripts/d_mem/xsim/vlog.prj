@@ -1,6 +1,0 @@
-verilog xil_defaultlib  \
-"../../../../convplex.srcs/sources_1/ip/d_mem/sim/d_mem.v" \
-
-verilog xil_defaultlib "glbl.v"
-
-nosort

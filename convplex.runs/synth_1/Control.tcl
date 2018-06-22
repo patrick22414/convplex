@@ -28,6 +28,7 @@ set_property target_language Verilog [current_project]
 set_property board_part xilinx.com:zc702:part0:1.3 [current_project]
 set_property ip_output_repo f:/Documents/GitHub/convplex/convplex.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
+add_files F:/Documents/GitHub/convplex/convplex.srcs/sources_1/ip/Mem.coe
 read_verilog -library xil_defaultlib F:/Documents/GitHub/convplex/convplex.srcs/sources_1/new/Control.v
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the

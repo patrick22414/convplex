@@ -5,10 +5,12 @@ module Control(
     input wire clk,
     input wire rst,
 
-    output reg en_weights, // enable weights input
-    output reg en_data,    // enable data input
-    output reg mem_rd,     // enable memory read
-    output reg mem_wr      // enable memory write
+    output reg en_weights,  // enable weights input
+    output reg en_pixels,  // enable pixels input
+    output reg mem_wr,  // enable memory write
+
+    output reg [11:0] addr_rd,
+    output reg [11:0] addr_wr
 );
 
     reg [10:0] c;  // counter
@@ -32,40 +34,46 @@ module Control(
             c32 <= c32 + 1;
     end
 
-    always @(*) begin
-        if (rst) begin
-            rst32 <= 1;
-            en_weights <= 0;
-            en_data <= 0;
-            mem_rd <= 0;
-            mem_wr <= 0;
-        end else if ( c > 1 && c < 11) begin  // effective from 2nd to 10th clk
-            rst32 <= 1;
-            en_weights <= 1;
-            en_data <= 0;
-            mem_rd <= 1;
-            mem_wr <= 0;
-        end else if (c < (11 + 67)) begin // effective from 11th to 77th clk
-            rst32 <= 1;
-            en_weights <= 0;
-            en_data <= 1;
-            mem_rd <= 1;
-            mem_wr <= 0;
-        end else if (c < (11 + 1024)) begin
-            rst32 <= 0;
-            en_weights <= 0;
-            en_data <= 1;
-            mem_rd <= 1;
-            if (c32 < 30)
-                mem_wr <= 1;
-            else
-                mem_wr <= 0;
+    always @(posedge clk) begin
+        if (c == 0) begin
+            addr_rd <= 0;
+            addr_wr <= 3072;
         end else begin
-            rst32 <= 1;
-            en_weights <= 0;
-            en_data <= 0;
-            mem_rd <= 0;
-            mem_wr <= 1;
+            addr_rd <= addr_rd + 1;
+            if (mem_wr)
+                addr_wr <= addr_wr + 1;
+        end
+    end
+
+    always @(c) begin
+        if (c < 1) begin
+            rst32       <= 1;
+            en_weights  <= 0;
+            en_pixels   <= 0;
+            mem_wr      <= 0;
+        end else if (c < (1+11)) begin
+            rst32       <= 1;
+            en_weights  <= 1;
+            en_pixels   <= 0;
+            mem_wr      <= 0;
+        end else if (c < (1+11+67)) begin
+            rst32       <= 1;
+            en_weights  <= 0;
+            en_pixels   <= 1;
+            mem_wr      <= 0;
+        end else if (c < (1+11+1024)) begin
+            rst32       <= 0;
+            en_weights  <= 0;
+            en_pixels   <= 1;
+            if (c32 < 30)
+                mem_wr  <= 1;
+            else
+                mem_wr  <= 0;
+        end else begin
+            rst32       <= 1;
+            en_weights  <= 0;
+            en_pixels   <= 0;
+            mem_wr      <= 1;
         end
     end
 

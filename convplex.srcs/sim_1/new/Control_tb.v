@@ -3,20 +3,22 @@
 module Control_tb;
 
     reg clk, rst;
-    wire enweig, endata, rd, wr;
+    wire en_weights, en_pixels, mem_wr;
+    wire [11:0] addr_rd, addr_wr;
 
     Control control(
         .clk(clk),
         .rst(rst),
-        .en_weights(enweig),
-        .en_data(endata),
-        .mem_rd(rd),
-        .mem_wr(wr)
+        .en_weights(en_weights),
+        .en_pixels(en_pixels),
+        .mem_wr(mem_wr),
+        .addr_rd(addr_rd),
+        .addr_wr(addr_wr)
     );
 
     initial begin
         rst <= 1; #20;
-        rst <= 0; #5000;
+        rst <= 0; #3000;
         $finish;
     end
 

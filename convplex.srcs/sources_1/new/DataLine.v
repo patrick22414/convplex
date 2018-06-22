@@ -5,7 +5,7 @@ module DataLine #(
     parameter w = 16,  // width: 16 bits
     parameter pix = 32,  // pixels: 32-by-32 picture
     parameter ksz = 3,  // kernel size: 3-by-3
-    parameter len = pix*(ksz-1)+ksz  // length of data line: 32*(3-1) + 3 = 67 registers
+    parameter depth = pix*(ksz-1)+ksz  // depth: 32*(3-1) + 3 = 67 registers
 )(
     input wire clk, en,
     input [w-1:0] din,
@@ -15,15 +15,15 @@ module DataLine #(
     output [w-1:0] dout6, dout7, dout8
 );
 
-    reg [w-1:0] line [len-1:0];
+    reg [w-1:0] line [depth-1:0];
     integer k = 0;
 
     always @(posedge clk) begin
         if (en) begin
-            for (k=0; k<len-1; k=k+1) begin
+            for (k=0; k<depth-1; k=k+1) begin
                 line[k] <= line[k+1];
             end
-            line[len-1] <= din;
+            line[depth-1] <= din;
         end
     end
 
