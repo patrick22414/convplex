@@ -58,3 +58,6 @@
 !*.elf
 !*.bmm
 !*.xmp
+
+# Python files
+!*.py
