@@ -33,13 +33,13 @@ module Convplex_tb;
     integer file, i;
 
     initial begin
-        file = $fopen("D:/output.txt");
+        file = $fopen("C:/output.txt");
         rst <= 1; #20;
         rst <= 0; #157; // begin to write in memory 
         // write value of 'mem_out' every 2 ns if 'mem_wr' is high
         for (i = 0; i<3000; i=i+1) begin
             if(mem_wr) begin
-                $fdisplay(file, "%b\t", mem_out);
+                $fdisplay(file, "%b", mem_out);
             end
             #2;
         end
