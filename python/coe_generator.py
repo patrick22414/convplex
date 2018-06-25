@@ -44,9 +44,9 @@ def gen_coe(image: array, kernel="identity", coe_path="../convplex.srcs/sources_
 
 
 if __name__ == "__main__":
-    example = dict(bird=6488, plane=6543)
+    example = dict(bird=6488, plane=6543, car=136)
 
-    picture = gen_image(example["bird"])
+    picture = gen_image(example["car"])
 
     gen_coe(picture, kernel="G-blur")
 
